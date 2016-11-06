@@ -13,7 +13,9 @@ Se ha capturado una sesión SIP (archivo sip.cap.gz), que se puede abrir con Wir
 
 2. Observa que las tramas capturadas corresponden a una sesión SIP con Ekiga, un cliente de VoIP para GNOME. Responde a las siguientes cuestiones:
  ** ¿Cuántos paquetes componen la captura?
+    La captura se compone de 954 paquetes, entre los cuales encontramos paquetes de todo tipo; desde paquetes propios de la captura de la sesion SIP, hasta paquetes que no tiene nada que ver con estos, que los clasificaresmos como paquetes de ruido; paquetes de otras aplicaciones.
  ** ¿Cuánto tiempo dura la captura?
+    La captura dura algo mas de 56 segundos (56.1493 seg.)
  ** ¿Qué IP tiene la máquina donde se ha efectuado la captura? ¿Se trata de una IP pública o de una IP privada? ¿Por qué lo sabes?
 
 
