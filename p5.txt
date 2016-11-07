@@ -112,16 +112,21 @@ REGISTER sip:ekiga.net SIP/2.0
         - NOTIFY
         - REFER
         - MESAGE
-    
-
-
 
 [Al terminar el ejercicio es recomendable hacer commit de los ficheros modificados]
 
 9. Fijémonos en las tramas siguientes a la número 46:
+
  ** ¿Se registra con éxito en el primer intento?
+    No, en el primer intento que se realiza en el paquete 46, no se consigue REGISTRAR con exito.
+
  ** ¿Cómo sabemos si el registro se ha realizado correctamente o no?
+    Para el primer intento, tenemos luego otro paquete en la línea 50, que nos devuelve un mensaje: 401 Unauthorized. Mientras que para el segundo intento del paquete 51 obtenemos luego una respuesta en el paquete 54 de 200 OK, y por tanto queda REGISTRADO el ususario.
+
  ** ¿Podrías identificar las diferencias entre el primer intento y el segundo de registro? (fíjate en el tamaño de los paquetes y mira a qué se debe el cambio)
+    El primer intento de REGISTRA, tiene un paquete de tamaño 523 bytes, se capturan 4184 bits. Mientras que en el segundo, intento, el paquete ocupa un tamaño de 712 bytes, se captura 5696 bits.
+    Si nos fijamos un poco más
+
  ** ¿Cuánto es el valor del tiempo de expiración de la sesión? Indica las unidades.
 
 
