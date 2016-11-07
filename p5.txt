@@ -358,32 +358,65 @@ estar seguro 100% de que la trama llega.
  ** ¿En qué trama sucede esto?
     En el paquete 950.
 
- ** ¿En qué se diferencia con la instrucción que se utilizó con anterioridad (al principio de la sesión)?
+ ** ¿En qué se diferencia con la instrucción que se utilizó con anterioridad 
+(al principio de la sesión)?
+     en que ahora el valor de la variable expires en vez de valer 3600 segundos
+vale 0.
 
 
-
-[Al terminar el ejercicio es recomendable hacer commit de los ficheros modificados]
+[Al terminar el ejercicio es recomendable hacer commit de los ficheros 
+modificados]
 
 ================================================================================
 ================================================================================
 
 Captura de una sesión SIP
 
-Captura una sesión SIP de una conversación con el número SIP sip:9999@qxip.net. Tendrás que dar de alta una cuenta en www.ekiga.net con el navegador. Recuerda también que has de comenzar a capturar tramas antes de arrancar Ekiga para ver todo el proceso en el que participa SIP. Para realizar los siguientes ejercicios, deberás crearte una cuenta en ekiga.net y darte de alta la lanzar la aplicación.
+Captura una sesión SIP de una conversación con el número SIP sip:9999@qxip.net.
+Tendrás que dar de alta una cuenta en www.ekiga.net con el navegador. Recuerda 
+también que has de comenzar a capturar tramas antes de arrancar Ekiga para ver 
+todo el proceso en el que participa SIP. Para realizar los siguientes 
+ejercicios, deberás crearte una cuenta en ekiga.net y darte de alta la lanzar 
+la aplicación.
 
-17. Observa las diferencias en el inicio de la conversación entre el entorno del laboratorio y el del ejercicio anterior:
+17. Observa las diferencias en el inicio de la conversación entre el entorno 
+del laboratorio y el del ejercicio anterior:
+
  ** ¿Es necesario el uso de DNS y STUN? ¿Por qué?
+    Si, ya que nos encontramos detras de un NAT y tenemos que saber cual es la 
+IP
+
  ** ¿Son diferentes el registro y la descripción de la sesión?
+    Suponemos que si, ya que ahora nos aparecen paquetes que en la captura del 
+laboraorio no nos aparecian. Como el paquete de SSDP o metodos nuevos en allow:
+    Allow: INVITE,ACK,OPTIONS,BYE,CANCEL,SUBSCRIBE,NOTIFY,REFER,MESSAGE,INFO,
+PING,PRACK.
+Donde INFO,PING, y PRACK son nuevos.
 
 
-18. Identifica las diferencias existentes entre esta conversación y la conversación anterior:
+18. Identifica las diferencias existentes entre esta conversación y la 
+conversación anterior:
+
  ** ¿Cuántos flujos tenemos?
+    2 flujos al igual que antes.
+    
  ** ¿Cuál es su periodicidad?
- ** ¿Cuánto es el valor máximo del delta y los valores medios y máximo del jitter?
- ** ¿Podrías reproducir la conversación desde Wireshark? ¿Cómo? Comprueba que poniendo un valor demasiado pequeño para el buffer de jitter, la conversación puede no tener la calidad necesaria.
- ** ¿Sabrías decir qué tipo de servicio ofrece sip:9999@qxip.net?
+    El tiempo es el mismo que antes. Tenemos la misma periodicidad.
 
+ ** ¿Cuánto es el valor máximo del delta y los valores medios y máximo del 
+jitter?
+    Primer flujo | Max. Delta: 80.456 | Max. Jitter:6.509 | Mean Jitter: 1.415
+    Segundo flujo | Max. Delta: 30.595 | Max. Jitter:4.992 | Mean Jitter:2.956
 
+ ** ¿Podrías reproducir la conversación desde Wireshark? ¿Cómo? Comprueba que 
+poniendo un valor demasiado pequeño para el buffer de jitter, la conversación 
+puede no tener la calidad necesaria.
+    Si, desde el menu accedemos a la opción de Telephony>>VoIP Calls. Y aque 
+nos aparece una ventana con la informacion de la llamada que realiza mi usuario
+al usuario sip:music@iptel.org
+ 
+ ** ¿Sabrías decir qué tipo de servicio ofrece sip:music@iptel.org?
+     Este servicio es una prueba de sonido con múscia.
 
 [Al terminar el ejercicio es recomendable hacer commit de los ficheros modificados]
 
