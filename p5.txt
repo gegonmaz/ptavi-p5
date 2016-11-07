@@ -40,7 +40,7 @@ Se ha capturado una sesión SIP (archivo sip.cap.gz), que se puede abrir con Wir
     Encontramos en la gráfica que el mayor tafico de paquetes se produce a los 26 segundos aproximadamente, ya que se alcanza el maximo de la grafica y se alcanzan los 90 paquetes por segundo.
 
  ** Y los paquetes con RTP, ¿cuándo se envían?
-
+    Los paquetes RTP se observan en el segundo en que comienza la llamada que esta alrededor de los 16 segundos aprox. hasta que finaliza la llamada, en el segundo 36 aprox.
 
 
 [Al terminar el ejercicio es recomendable hacer commit de los ficheros modificados]
@@ -55,6 +55,7 @@ Se ha capturado una sesión SIP (archivo sip.cap.gz), que se puede abrir con Wir
 
  ** ¿Qué dirección IP (de ekiga.net) devuelve el servicio de nombres?
     Ekiga devuelve la dirección 86.64.162.35
+
  ** ¿Por qué se pide también para 35.162.64.86.in-addr.arpa?
     Porque para conectarse al servidor de Ekiga, necesita pasar por la red arpa.
 
@@ -125,26 +126,46 @@ REGISTER sip:ekiga.net SIP/2.0
 
  ** ¿Podrías identificar las diferencias entre el primer intento y el segundo de registro? (fíjate en el tamaño de los paquetes y mira a qué se debe el cambio)
     El primer intento de REGISTRA, tiene un paquete de tamaño 523 bytes, se capturan 4184 bits. Mientras que en el segundo, intento, el paquete ocupa un tamaño de 712 bytes, se captura 5696 bits.
-    Si nos fijamos un poco más
+    Si nos fijamos un poco más, nos encontramos en el mensaje de cabecera, una línea de Autorizacion en el segundo paquete, que en el primero es inexistente; y que nos proporciona informacion del usuario.
 
  ** ¿Cuánto es el valor del tiempo de expiración de la sesión? Indica las unidades.
-
+    El tiempo de expiración de la sesion son de 3600 segundos, es decir la sesion estará activa una hora.
 
 10. Una vez registrados, podemos efectuar una llamada. Vamos a probar con el servicio de eco de Ekiga que nos permite comprobar si nos hemos conectado correctamente. El servicio de eco tiene la dirección sip:500@ekiga.net. Veamos el INVITE de cerca.
- ** ¿Puede verse el nombre del que efectúa la llamada, así como su dirección SIP?
- ** ¿Qué es lo que contiene el cuerpo de la trama? ¿En qué formato/protocolo está?
- ** ¿Tiene éxito el primer intento? ¿Cómo lo sabes?
- ** ¿En qué se diferencia el segundo INVITE más abajo del primero? ¿A qué crees que se debe esto?
 
+ ** ¿Puede verse el nombre del que efectúa la llamada, así como su dirección SIP?
+    Si, en el paquete 84 de la captura encontramos una peticion de INVITE. Si observamos la información del paquete, obtenemos que la llamada va destinada a Gregorio Robles con cuenta sip:grex@ekiga.net, y que la llamada la realiza el usuario sip:500@ekiga.net
+
+ ** ¿Qué es lo que contiene el cuerpo de la trama? ¿En qué formato/protocolo está?
+    La trama contiene la parte del protocolo SIP, en la que encontramos el metodo INVITE (Descripcion de la asesion SIP) y la parte del protocolo de SDP   
+    La trama utiliza un protocolo SIP/SDP
+
+ ** ¿Tiene éxito el primer intento? ¿Cómo lo sabes?
+    No, el primer intento no funciona, y en la siguiente línea recibimos un paquete con la descripcion 407 Proxy Authentication Required
+
+ ** ¿En qué se diferencia el segundo INVITE más abajo del primero? ¿A qué crees que se debe esto?
+    En el segundo intento el paquete es más grande, (1181 bytes) mientras que el primero ocupa 982 bytes,; por lo tanto se añade informacion en el segundo paquete. Ocurre algo parecido al REGISTRA anterior. Ahora lo que sucede es que tenemos que autenticarnos mediante el Proxy.
 
 11. Una vez conectado, estudia el intercambio de tramas.
+
  ** ¿Qué protocolo(s) se utiliza(n)? ¿Para qué sirven estos protocolos?
+    Se utiliza:
+    -  H.261 --> Es un estandar de la ITU-T sobre compresion de video. Se utiliza para comprimir audio y video. Funciona sobre RTP
+    - RTP --> Real-time Transport Protocol (Protocolo de Transporte de Tiempo real). Es un protocolo de nivel de sesión utilizado para la transmisión de información en tiempo real, como por ejemplo audio y vídeo en una video-conferencia.
+    - RTCP --> Envio de datos de control durante la comunicación. (es utilizado para enviar datos de control entre el emisor y receptor de una secuencia RTP. Los paquetes RTCP son enviados aproximadamente cada cinco segundos, y contienen datos que ayudan a verificar las condiciones de transmisión en el extremo remoto).
+
  ** ¿Cuál es el tamaño de paquete de los mismos?
+    Los paquetes RTP y RTCP tienen un tamaño fijo, mientras que H.261 varia en tamaño. Los paquetes RTP ocupan un tamaño de 214 bytes mientras RTCP ocupa 102 bytes.
+
  ** ¿Se utilizan bits de padding?
+    No
+
  ** ¿Cuál es la periodicidad de los paquetes que se envían?
+    Si cogemos uno de los paquetes RTP observamos su línea y encontramos los siguientes datos:
+    tenemos un Payload : ITU-T g.711 PCMA 8 y un número de secuencia que se incrementa en una unidad cuando pasamoas al siguiente paquete. y un Timestamp, que tambien se modifica cada vez que cambiamos el paquete. Timestamp es de 160 segundos.
+
  ** ¿Cuántos bits/segundo estamos enviando?
-
-
+    Cada paquete RTP envia 1712 bits
 
 [Al terminar el ejercicio es recomendable hacer commit de los ficheros modificados]
 
